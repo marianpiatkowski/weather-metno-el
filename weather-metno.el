@@ -114,10 +114,10 @@ See `format-time-string' for a description of the format."
 (defconst weather-metno-url "http://api.met.no/weatherapi/"
   "URL to api.met.no.")
 
-(defconst weather-metno-weathericon-version "1.0"
+(defconst weather-metno-weathericon-version "1.1"
   "Version of weathericon.")
 
-(defconst weather-metno-forecast-version "1.8"
+(defconst weather-metno-forecast-version "1.9"
   "Version of locationforecast.")
 
 (defconst weather-metno-logo "met-no.png"
@@ -210,7 +210,7 @@ fetched.  If POLARP then an icon for a polarday will be fetched.  CONTENT-TYPE
 specifies the content-type (default image/png).
 
 This uses the met.no weathericon API
-http://api.met.no/weatherapi/weathericon/1.0/documentation
+http://api.met.no/weatherapi/weathericon/1.1/documentation
 
 The data is available under CC-BY-3.0."
   (let ((symbol (weather-metno--symbol-cache-fetch icon nightp polarp content-type)))
@@ -420,11 +420,11 @@ documentation of the web API."
   "Insert ARGS into current buffer with FACE."
   (insert (propertize (apply 'concat args) 'face face)))
 
-(defcustom weather-metno-unit-name '(("celcius" . "℃"))
+(defcustom weather-metno-unit-name '(("celsius" . "℃"))
   "Table to translate unit names.
 This can NOT be used to convert units!"
   :group 'weather-metno
-  :options '("celcius")
+  :options '("celsius")
   :type '(alist :key-type string :value-type string))
 
 (defun weather-metno--unit-name (unit)
@@ -662,7 +662,7 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                      (to (cadr date-range))
                      (date (weather-metno--time-to-date to))
                      last-headline)
-                
+
                 (unless (calendar-date-equal date last-date)
                   (weather-metno--insert
                    'weather-metno-date
