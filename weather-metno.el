@@ -343,7 +343,7 @@ CALLBACK is called when the request is completed.  CALLBACK gets called with
 format described in `weather-metno--forecast-convert'.  Unless RAW-XML is set in
 which case DATA is simply the result of `xml-parse-region'.
 
-See http://api.met.no/weatherapi/locationforecast/1.8/documentation for the
+See http://api.met.no/weatherapi/locationforecast/1.9/documentation for the
 documentation of the web API."
   (let ((url (weather-metno--forecast-url lat lon msl)))
     (url-retrieve url
