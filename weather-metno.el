@@ -678,7 +678,7 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                       (weather-metno--insert 'weather-metno-date-range
                                             "** " from-string)
                     (weather-metno--insert 'weather-metno-date-range
-                                          "** "
+                                          "** Period "
                                           from-string
                                           "–"
                                           (format-time-string
