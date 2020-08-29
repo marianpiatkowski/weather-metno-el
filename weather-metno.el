@@ -114,10 +114,10 @@ See `format-time-string' for a description of the format."
 (defconst weather-metno-url "http://api.met.no/weatherapi/"
   "URL to api.met.no.")
 
-(defconst weather-metno-weathericon-version "1.1"
+(defconst weather-metno-weathericon-version "2.0"
   "Version of weathericon.")
 
-(defconst weather-metno-forecast-version "1.9"
+(defconst weather-metno-forecast-version "2.0"
   "Version of locationforecast.")
 
 (defconst weather-metno-logo "met-no.png"
@@ -210,7 +210,7 @@ fetched.  If POLARP then an icon for a polarday will be fetched.  CONTENT-TYPE
 specifies the content-type (default image/png).
 
 This uses the met.no weathericon API
-http://api.met.no/weatherapi/weathericon/1.1/documentation
+http://api.met.no/weatherapi/weathericon/2.0/documentation
 
 The data is available under CC-BY-3.0."
   (let ((symbol (weather-metno--symbol-cache-fetch icon nightp polarp content-type)))
@@ -276,7 +276,7 @@ compatible timestamps.  Except for fractional seconds! Thanks to tali713."
 
 (defun weather-metno--forecast-url (lat lon &optional msl)
   "Create the url from LAT, LON and MSL to be used by `weather-metno-forecast'."
-  (concat (format "%slocationforecast/%s/?lat=%s;lon=%s"
+  (concat (format "%slocationforecast/%s/classic?lat=%s;lon=%s"
                   weather-metno-url weather-metno-forecast-version lat lon)
           (if msl
               (format ";msl=%s" msl)
@@ -343,7 +343,7 @@ CALLBACK is called when the request is completed.  CALLBACK gets called with
 format described in `weather-metno--forecast-convert'.  Unless RAW-XML is set in
 which case DATA is simply the result of `xml-parse-region'.
 
-See http://api.met.no/weatherapi/locationforecast/1.9/documentation for the
+See http://api.met.no/weatherapi/locationforecast/2.0/documentation for the
 documentation of the web API."
   (let ((url (weather-metno--forecast-url lat lon msl)))
     (url-retrieve url
@@ -519,6 +519,18 @@ E.g. temperature, pressure, precipitation, ..."
   "Format high clouds."
   (format "High clouds %s%%"
           (cdr (assq 'percent attributes))))
+
+(defun weather-metno--format--dewpointTemperature (attributes _)
+  "Format dewpoint temperature."
+  (weather-metno--format-value-unit "Dewpoint temperature" attributes))
+
+(defun weather-metno--format--minTemperature (attributes _)
+  "Format min temperature."
+  (weather-metno--format-value-unit "Min temperature" attributes))
+
+(defun weather-metno--format--maxTemperature (attributes _)
+  "Format max temperature."
+  (weather-metno--format-value-unit "Max temperature" attributes))
 
 (defun weather-metno--format--symbol (attributes last-headline)
   "Format symbol."

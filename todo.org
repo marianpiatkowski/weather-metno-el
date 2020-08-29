@@ -7,7 +7,7 @@
 ** DONE allow user defined format
 ** DONE provide more data
 * DONE symbol fetch
-http://api.met.no/weatherapi/weathericon/1.0/documentation
+http://api.met.no/weatherapi/weathericon/2.0/documentation
 * TODO support for other apis?
 Other met.no apis are norway specific.
 http://api.met.no/weatherapi/documentation
