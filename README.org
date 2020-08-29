@@ -12,6 +12,16 @@ See =todo.org= for todos and longterm goals.
 
 Please submit bug reports and feature requests to the [[https://github.com/ruediger/weather-metno-el/issues][Github issue tracker]].
 
+The API of the Norwegian national meterological institute has changed. The
+current version is now 2.0. Some example links are:
+https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=49.42&lon=8.67
+https://api.met.no/weatherapi/sunrise/2.0/?lat=49.42&lon=8.67&date=2020-08-22&offset=+02:00
+
+Example link to download weather icons:
+curl -O https://raw.githubusercontent.com/nrkno/yr-weather-symbols/master/dist/png/30/01d.png
+The corresponding Git repository is at:
+https://github.com/nrkno/yr-weather-symbols.git
+
 * Installation
 The easiest way to install weather-metno is by using [[https://github.com/dimitri/el-get#readme][el-get]] or
 [[http://marmalade-repo.org/packages/weather-metno/][marmalade-repo]] (package.el).
@@ -94,4 +104,3 @@ displayed information can not be configured.
 
 #+CAPTION: mode-line support
 [[./images/mode-line.png]]
-
