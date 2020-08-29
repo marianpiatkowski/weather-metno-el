@@ -1,9 +1,12 @@
 ;;; weather-metno-mode-line.el --- Weather in the mode line
 
 ;; Copyright (C) 2012-2014 Rüdiger Sonderfeld <ruediger@c-plusplus.de>
+;; Copyright (C) 2014 Marian Piatkowski <marian.piatkowski@iwr.uni-heidelberg.de>
+;; Copyright (C) 2020 Marian Piatkowski <marianpiatkowski@web.de>
 
 ;; Author: Rüdiger Sonderfeld <ruediger@c-plusplus.de>
-;; URL: https://github.com/ruediger/weather-metno-el
+;; Author: Marian Piatkowski  <marianpiatkowski@web.de>
+;; URL: https://github.com/marianpiatkowski/weather-metno-el
 ;; Keywords: comm
 
 ;; This file is NOT part of GNU Emacs.
