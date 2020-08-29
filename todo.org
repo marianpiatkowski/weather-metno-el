@@ -1,5 +1,5 @@
 # -*- mode:org; coding:utf-8 -*-
-* TODO add met.no symbol
+* DONE add met.no symbol
 - Link on http://api.met.no/license_data.html is broken!
 - is logo CC as well?
 * org integration
