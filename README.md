@@ -14,8 +14,18 @@ Please submit bug reports and feature requests to the [Github issue tracker](htt
 
 ## Installation
 
-The current version can only be installed manually. Add the `weather-metno-el` directory to your
-`load-path`. If desired call `make` to byte compile the code prior to that.
+The current version can only be installed manually. Clone this repository with the `--recursive` option,
+i.e.
+```bash
+$ git clone --recursive https://github.com/marianpiatkowski/weather-metno-el.git
+```
+if you haven't done so. Otherwise type
+```bash
+$ git submodule init
+$ git submodule update
+```
+Then add the `weather-metno-el` directory to your
+`load-path`. If desired call `make` to byte-compile the code prior to that.
 ```cl
 (add-to-list 'load-path "path/to/weather-metno-el")
 (require 'weather-metno)
