@@ -143,64 +143,6 @@ See `format-time-string' for a description of the format."
   (cdr (assoc (list icon nightp polarp content-type) weather-metno-symbol--storage)))
 
 
-(defun weather-metno--weathericon-url (icon &optional nightp polarp content-type)
-  "Create URL for weathericon API."
-  (cl-assert (integerp icon))
-  (format "%sweathericon/%s/?symbol=%s%s%s;content_type=%s" weather-metno-url
-          weather-metno-weathericon-version icon
-          (if nightp ";is_night=1" "")
-          (if polarp ";is_polarday=1" "")
-          (or content-type "image/png")))
-
-(defcustom weather-metno-get-image-props nil
-  "Image props for weather symbols.
-See `create-image' or \"(elisp) Images\" for an explanation.
-
-Example: (:width 16 :height 16 :ascent center) to force icons to be 16x16. This
-only works if ImageMagick is used.  See `weather-metno-use-imagemagick'."
-  :group 'weather-metno
-  :type 'list)
-
-(defcustom weather-metno-use-imagemagick (fboundp 'imagemagick-types)
-  ;; TODO is there a better way to identify if emacs has imagemagick support?
-  "Use ImageMagick to load images.
-ImageMagick is required for some image options such as resizing.
-See `weather-metno-get-image-props'."
-  :group 'weather-metno
-  :type 'boolean)
-
-(defun weather-metno--get-image (icon nightp polarp content-type)
-  "Extract image from current-buffer."
-  (goto-char (point-min))
-  (unless (search-forward "\n\n" nil t)
-    (kill-buffer)
-    (error "Error in http reply"))
-  (let ((headers (buffer-substring (point-min) (point))))
-    (unless (string-match-p (concat "^HTTP/1.1 "
-                                    "\\(200 OK\\|203 "
-                                    "Non-Authoritative Information\\)")
-                            headers)
-      (kill-buffer)
-      (error "Unable to fetch data"))
-    (url-store-in-cache (current-buffer))
-    (let ((image (apply #'create-image (buffer-substring (point) (point-max))
-                        (if weather-metno-use-imagemagick
-                            'imagemagick
-                          (if content-type nil 'png))
-                        t weather-metno-get-image-props)))
-      (weather-metno--symbol-cache-insert image icon nightp polarp content-type)
-      (kill-buffer)
-      image)))
-
-(defun weather-metno--do-insert-weathericon (_status buffer point icon nightp
-                                                   polarp content-type)
-  "Insert image in BUFFER at POINT.
-This is used by `weather-metno-insert-weathericon' as handler."
-  (save-excursion
-    (let ((image (weather-metno--get-image icon nightp polarp content-type)))
-      (with-current-buffer buffer
-        (put-image image point)))))
-
 (defvar weather-metno-symbol-expire-time 86400
   "Expire time for symbols in seconds.
 See `url-cache-expire-time'. Default is 24h (86400s).")
@@ -216,46 +158,15 @@ This uses the met.no weathericon API
 http://api.met.no/weatherapi/weathericon/2.0/documentation
 
 The data is available under CC-BY-3.0."
-  (let ((symbol (weather-metno--symbol-cache-fetch icon nightp polarp content-type)))
-    (if symbol
-        (put-image symbol point)
-      (let* ((url (weather-metno--weathericon-url icon nightp polarp
-                                                 content-type))
-             (expire-time2 (or expire-time
-                               weather-metno-symbol-expire-time))
-             (expired (if expire-time2
-                          (url-cache-expired url expire-time2)
-                        t)))
-        (if (not expired)
-            (with-current-buffer (url-fetch-from-cache url)
-              (weather-metno--do-insert-weathericon nil buffer point icon nightp polarp content-type))
-          (url-retrieve
-           url
-           'weather-metno--do-insert-weathericon
-           (list buffer point icon nightp polarp content-type)))))))
+  ;; (message (format "=== %s %s %s" icon nightp polarp))
 
-(defun weather-metno-get-weathericon (icon &optional nightp polarp content-type
-                                           expire-time)
-  "Fetch the weather ICON and return it.
-Fetch is done synchronously.  Use `weather-metno-insert-weathericon' if you just
-want to insert the icon into a buffer.
-
-The data is available under CC-BY-3.0."
-  (let ((symbol (weather-metno--symbol-cache-fetch icon nightp polarp content-type)))
-    (if symbol
-        symbol
-      (let* ((url (weather-metno--weathericon-url icon nightp polarp
-                                                 content-type))
-             (expire-time2 (or expire-time
-                               weather-metno-symbol-expire-time))
-             (expired (if expire-time2
-                          (url-cache-expired url expire-time2)
-                        t)))
-        (if (not expired)
-            (with-current-buffer (url-fetch-from-cache url)
-              (weather-metno--get-image icon nightp polarp content-type))
-          (with-current-buffer (url-retrieve-synchronously url)
-            (weather-metno--get-image icon nightp polarp content-type)))))))
+  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d%s.png" icon "d")))
+    (when (file-exists-p string-p)
+      (put-image (create-image string-p) point)))
+  ;; if image doesn't exist try without 'd', 'm'  and 'n', respectively
+  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d.png" icon )))
+    (when (file-exists-p string-p)
+      (put-image (create-image string-p) point))))
 
 (defun weather-metno--parse-time-string (time-string)
   "Parse a RFC3339 compliant TIME-STRING.

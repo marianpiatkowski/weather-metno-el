@@ -41,15 +41,6 @@ weather forecast for the given location.
 You can use `M-x weather-metno-forecast-location` to get the weather forecast
 for a different location.
 
-If you want to force the icons to have a specific size then set
-`weather-metno-get-image-props` to `(:width 16 :height 16 :ascent center)`.
-This only works when Emacs has ImageMagick support and
-`weather-metno-use-imagemagick` is set (default is autodetect).
-
-```cl
-(setq weather-metno-get-image-props '(:width 16 :height 16 :ascent center))
-```
-
 ## Orgmode support
 
 Weather-metno-el can display weather data in your agenda buffer.  Simply add the
