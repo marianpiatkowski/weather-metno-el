@@ -3,6 +3,14 @@
 (defvar weather-metno--sunrise-data nil
   "Sunrise data test variable.")
 
+(defun weather-metno-sunrise-url (lat lon &optional height)
+  "Create the url from LAT, LON and MSL to be used by `weather-metno-sunrise'."
+  ;; TODO offset only works for integer values correctly
+  (format "%ssunrise/%s/?lat=%s&lon=%s&date=%s&offset=+%s:00"
+          weather-metno-url weather-metno-forecast-version lat lon
+          (format-time-string "%Y-%m-%d")
+          (format "%02d" (/ (car (current-time-zone)) 3600))))
+
 (defun weather-metno-sunrise-receive ()
   "Fetch sunrise and more from met.no for
 `weather-metno-location-latitude', `weather-metno-location-longitude',
@@ -21,7 +29,7 @@ and `weather-metno-location-msl'."
         ;; see weather-metno--insert
         (insert (propertize "** Hello Sunrise\n"))
         ;; test for data fetch from url
-        (let ((url "https://api.met.no/weatherapi/sunrise/2.0/?lat=49.42&lon=8.67&date=2020-09-02&offset=+02:00"))
+        (let ((url (weather-metno-sunrise-url weather-metno-location-latitude weather-metno-location-longitude)))
           (url-retrieve url
                         (lambda (status start-time)
                           (message "The request is completed in %f seconds"
