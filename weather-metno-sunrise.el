@@ -1,7 +1,7 @@
 (require 'weather-metno)
 
 (defvar weather-metno--sunrise-data nil
-  "Sunrise data test variable.")
+  "Store sunrise data from `xml-parse-region'.")
 
 (defun weather-metno-sunrise-url (lat lon &optional height)
   "Create the url from LAT, LON and MSL to be used by `weather-metno-sunrise'."
@@ -10,12 +10,6 @@
           weather-metno-url weather-metno-forecast-version lat lon
           (format-time-string "%Y-%m-%d")
           (format "%02d" (/ (car (current-time-zone)) 3600))))
-
-(defun weather-metno-sunrise-receive ()
-  "Fetch sunrise and more from met.no for
-`weather-metno-location-latitude', `weather-metno-location-longitude',
-and `weather-metno-location-msl'."
-  )
 
 (defun weather-metno-sunrise (&optional no-switch)
   "Display sunrise, moonrise, sunset, moonset etc."
