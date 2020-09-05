@@ -20,8 +20,13 @@
         (weather-metno-forecast-mode)
         (erase-buffer)
         (goto-char (point-min))
-        ;; see weather-metno--insert
-        (insert (propertize "** Hello Sunrise\n"))
+        (weather-metno--insert 'weather-metno-header
+                               (concat "Sun/moon rise/set for "
+                                       weather-metno-location-name
+                                       "\n"))
+        (weather-metno--insert 'weather-metno-date
+                               "* For "
+                               (format-time-string "%A %Y-%m-%d") "\n")
         (let ((url (weather-metno-sunrise-url weather-metno-location-latitude weather-metno-location-longitude)))
           (url-retrieve url
                         (lambda (status start-time)
@@ -47,6 +52,44 @@
                         `(,(current-time))
                         'silent
                         'inhibit-cookies))
+        ;; TODO this must go into the let* body for extracting contents from the XML tree
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Moon phase")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Moon shadow")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Moon position")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Solar midnight")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** High Moon")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Sunrise")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Moonset")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Solar noon")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Low Moon")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Sunset")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Moonrise")
+        (insert "\n")
+        (weather-metno--insert 'font-lock-function-name-face
+                               "** Daytime (difference between sunset and sunrise)")
+        (insert "\n")
+        ;; end of TODO block
         (insert (format "%s" weather-metno--sunrise-data))
         (insert (propertize "\n\n\n"))
         (let* ((astrodata (car weather-metno--sunrise-data))
