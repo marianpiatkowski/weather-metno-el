@@ -28,22 +28,32 @@ and `weather-metno-location-msl'."
         (goto-char (point-min))
         ;; see weather-metno--insert
         (insert (propertize "** Hello Sunrise\n"))
-        ;; test for data fetch from url
         (let ((url (weather-metno-sunrise-url weather-metno-location-latitude weather-metno-location-longitude)))
           (url-retrieve url
                         (lambda (status start-time)
                           (message "The request is completed in %f seconds"
                                    (float-time (time-subtract nil start-time)))
-                          (setq weather-metno--sunrise-data (buffer-string))
-                          ;; (prog1 (buffer-string)
-                          ;;   (insert " Klaus")
-                          ;;   (kill-buffer)))
-                          ;;(display-buffer (current-buffer)))
+                          (save-excursion
+                            (goto-char (point-min))
+                            (unless (search-forward "\n\n" nil t)
+                              (kill-buffer)
+                              (error "Error in http reply"))
+                            (let ((headers (buffer-substring (point-min) (point))))
+                              (unless (string-match-p
+                                       (concat "^HTTP/1.1 "
+                                               "\\(200 OK\\|203 "
+                                               "Non-Authoritative Information\\)")
+                                       headers)
+                                (kill-buffer)
+                                (error "Unable to fetch data"))
+                              (url-store-in-cache (current-buffer))
+                              (setq weather-metno--sunrise-data (xml-parse-region (point) (point-max)))
+                              (kill-buffer)))
                           )
                         `(,(current-time))
                         'silent
                         'inhibit-cookies))
-        (insert (propertize weather-metno--sunrise-data))
+        (insert (format "%s" weather-metno--sunrise-data))
         (insert (propertize "\n\n\n"))
 
 
