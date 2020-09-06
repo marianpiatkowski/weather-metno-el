@@ -5,11 +5,10 @@
 
 (defun weather-metno-sunrise-url (lat lon &optional height)
   "Create the url from LAT, LON and MSL to be used by `weather-metno-sunrise'."
-  ;; TODO offset only works for integer values correctly
-  (format "%ssunrise/%s/?lat=%s&lon=%s&date=%s&offset=+%s:00"
+  (format "%ssunrise/%s/?lat=%s&lon=%s&date=%s&offset=+%s"
           weather-metno-url weather-metno-forecast-version lat lon
           (format-time-string "%Y-%m-%d")
-          (format "%02d" (/ (car (current-time-zone)) 3600))))
+          (format-seconds "%02h:%02m" (car (current-time-zone)))))
 
 (defun weather-metno-sunrise (&optional no-switch)
   "Display sunrise, moonrise, sunset, moonset etc."
