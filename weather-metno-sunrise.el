@@ -3,6 +3,33 @@
 (defvar weather-metno--sunrise-data nil
   "Store sunrise data from `xml-parse-region'.")
 
+(defun weather-metno-kill-sunrise-buffer ()
+  (interactive)
+  (kill-buffer "*Sunrise*"))
+
+(defvar weather-metno-sunrise-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "q" 'weather-metno-kill-sunrise-buffer)
+    (define-key map "g" 'weather-metno-sunrise)
+    map)
+  "Keymap for `weather-metno-sunrise-mode'.")
+
+(eval-when-compile (require 'easymenu))
+(easy-menu-define weather-metno-sunrise-mode weather-metno-sunrise-mode-map
+  "Menu for Weather Metno Sunrise."
+  '("Sun/Moon rise/set"
+    ["Update" weather-metno-sunrise
+     :help "Fetch new data from met.no"]
+    ["Quit" weather-metno-kill-sunrise-buffer
+     :help "Quit"]))
+
+(define-derived-mode weather-metno-sunrise-mode special-mode
+  "metno-sunrise"
+  "Major mode for showing sun/moon rise/set.
+
+\\{weather-metno-sunrise-mode-map}"
+  :group 'weather-metno)
+
 (defun weather-metno-sunrise-url (lat lon &optional height)
   "Create the url from LAT, LON and MSL to be used by `weather-metno-sunrise'."
   (format "%ssunrise/%s/?lat=%s&lon=%s&date=%s&offset=+%s"
@@ -16,7 +43,7 @@
   (with-current-buffer (get-buffer-create "*Sunrise*")
     (save-excursion
       (let ((inhibit-read-only t))
-        (weather-metno-forecast-mode)
+        (weather-metno-sunrise-mode)
         (erase-buffer)
         (goto-char (point-min))
         (weather-metno--insert 'weather-metno-header
