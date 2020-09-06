@@ -11,18 +11,18 @@
 
 ;; This file is NOT part of GNU Emacs.
 
-;; weather-el is free software: you can redistribute it and/or modify
+;; weather-metno-el is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
 
-;; weather-el is distributed in the hope that it will be useful,
+;; weather-metno-el is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with weather-el.  If not, see <http://www.gnu.org/licenses/>.
+;; along with weather-metno-el.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 

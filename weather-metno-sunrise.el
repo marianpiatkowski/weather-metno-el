@@ -1,3 +1,33 @@
+;;; weather-metno-sunrise.el --- Sun/Moon rise/set from met.no in Emacs -*- lexical-binding: t -*-
+
+;; Copyright (C) 2020 Marian Piatkowski <marianpiatkowski@web.de>
+
+;; Author: Marian Piatkowski <marianpiatkowski@web.de>
+;; URL: https://github.com/marianpiatkowski/weather-metno-el
+;; Keywords: comm
+
+;; This file is NOT part of GNU Emacs.
+
+;; weather-metno-el is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; weather-metno-el is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with weather-metno-el.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; See http://api.met.no/weatherapi/documentation
+;; and http://api.met.no/license_data.html
+
+;;; Code:
+
 (require 'weather-metno)
 
 (defvar weather-metno--sunrise-data nil
