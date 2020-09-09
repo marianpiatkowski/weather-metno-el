@@ -126,23 +126,6 @@ See `format-time-string' for a description of the format."
 (defconst weather-metno-logo "met-no.png"
   "File name of the met.no logo.")
 
-(defvar weather-metno-symbol--storage nil
-  "Cache symbols")
-
-(defun weather-metno-clear-symbol-cache ()
-  (interactive)
-  (setq weather-metno-symbol--storage nil))
-
-(defun weather-metno--symbol-cache-insert (symbol icon &optional nightp polarp content-type)
-  "Store IMAGE in cache."
-  (setq weather-metno-symbol--storage (append weather-metno-symbol--storage
-                                             (list (cons (list icon nightp polarp content-type) symbol)))))
-
-(defun weather-metno--symbol-cache-fetch (icon &optional nightp polarp content-type)
-  "Fetch symbol from cache"
-  (cdr (assoc (list icon nightp polarp content-type) weather-metno-symbol--storage)))
-
-
 (defvar weather-metno-symbol-expire-time 86400
   "Expire time for symbols in seconds.
 See `url-cache-expire-time'. Default is 24h (86400s).")
