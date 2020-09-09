@@ -143,11 +143,15 @@ http://api.met.no/weatherapi/weathericon/2.0/documentation
 The data is available under CC-BY-3.0."
   ;; (message (format "=== %s %s %s" icon nightp polarp))
 
-  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d%s.png" icon "d")))
+  (let ((string-p (format "%syr-weather-symbols/dist/png/30/%02d%s.png"
+                          (file-name-directory (symbol-file 'weather-metno-url))
+                          icon "d")))
     (when (file-exists-p string-p)
       (put-image (create-image string-p) point)))
   ;; if image doesn't exist try without 'd', 'm'  and 'n', respectively
-  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d.png" icon )))
+  (let ((string-p (format "%syr-weather-symbols/dist/png/30/%02d.png"
+                          (file-name-directory (symbol-file 'weather-metno-url))
+                          icon)))
     (when (file-exists-p string-p)
       (put-image (create-image string-p) point))))
 
@@ -605,8 +609,12 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                 )))
           )
         (insert "\n")
-        (when (file-exists-p weather-metno-logo)
-          (insert-image-file weather-metno-logo))
+        (let ((weather-metno-filename
+               (format "%s%s"
+                       (file-name-directory (symbol-file 'weather-metno-url))
+                       weather-metno-logo)))
+          (when (file-exists-p weather-metno-filename)
+            (insert-image-file weather-metno-filename)))
         (weather-metno--insert
          'weather-metno-footer
          "Data from The Norwegian Meteorological Institute (CC BY 3.0)\n" ;; TODO link!
