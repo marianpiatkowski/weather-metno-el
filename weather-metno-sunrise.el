@@ -78,6 +78,32 @@
                   (time-to-seconds (time-subtract (apply 'encode-time (weather-metno--parse-time-string time-string1))
                                                   (apply 'encode-time (weather-metno--parse-time-string time-string2))))))
 
+(defun weather-metno-insert-moonphase (value)
+  "Insert Moon Phase icon in the current buffer at point."
+  (let ((moonphase-filename (format "%smoon-phases/icons8/cute-color/%s/"
+                                    (file-name-directory (symbol-file 'weather-metno-sunrise-url))
+                                    (if (> weather-metno-location-latitude 0) "northern" "southern"))))
+    (cond ((and (<= 0 value) (<= value 1))
+           (setq moonphase-filename (concat moonphase-filename "new-moon.png")))
+          ((and (< 1 value) (<= value 24))
+           (setq moonphase-filename (concat moonphase-filename "waxing-crescent-moon.png")))
+          ((and (< 24 value) (<= value 26))
+           (setq moonphase-filename (concat moonphase-filename "first-quarter-moon.png")))
+          ((and (< 26 value) (<= value 49))
+           (setq moonphase-filename (concat moonphase-filename "waxing-gibbous-moon.png")))
+          ((and (< 49 value) (<= value 51))
+           (setq moonphase-filename (concat moonphase-filename "full-moon.png")))
+          ((and (< 51 value) (<= value 74))
+           (setq moonphase-filename (concat moonphase-filename "waning-gibbous-moon.png")))
+          ((and (< 74 value) (<= value 76))
+           (setq moonphase-filename (concat moonphase-filename "last-quarter-moon.png")))
+          ((and (< 76 value) (<= value 99))
+           (setq moonphase-filename (concat moonphase-filename "waning-crescent-moon.png")))
+          ((and (< 99 value) (<= value 100))
+           (setq moonphase-filename (concat moonphase-filename "new-moon.png"))))
+    (when (file-exists-p moonphase-filename)
+      (insert-image (create-image moonphase-filename)))))
+
 (defun weather-metno-sunrise (&optional no-switch)
   "Display sunrise, moonrise, sunset, moonset etc."
   (interactive)
@@ -193,6 +219,7 @@
           (weather-metno--insert 'font-lock-keyword-face
                                  "*** Value "
                                  moonphase-value)
+          (weather-metno-insert-moonphase (string-to-number moonphase-value))
           (insert "\n")
           (weather-metno--insert 'font-lock-keyword-face
                                  "*** Desc "
