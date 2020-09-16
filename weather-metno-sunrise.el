@@ -104,12 +104,16 @@
     (when (file-exists-p moonphase-filename)
       (insert-image (create-image moonphase-filename)))))
 
+;;;###autoload
 (defun weather-metno-sunrise (&optional no-switch)
-  "Display sunrise, moonrise, sunset, moonset etc."
+  "Display sunrise, moonrise, sunset, moonset etc.
+If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
   (interactive)
   (with-current-buffer (get-buffer-create "*Sunrise*")
     (save-excursion
       (let ((inhibit-read-only t))
+        (remove-images (point-min) (point-max))
+
         (weather-metno-sunrise-mode)
         (erase-buffer)
         (goto-char (point-min))
@@ -120,7 +124,8 @@
         (weather-metno--insert 'weather-metno-date
                                "* For "
                                (format-time-string "%A %Y-%m-%d") "\n")
-        (let ((url (weather-metno-sunrise-url weather-metno-location-latitude weather-metno-location-longitude)))
+        (let ((url (weather-metno-sunrise-url weather-metno-location-latitude
+                                              weather-metno-location-longitude)))
           (url-retrieve url
                         (lambda (status start-time)
                           (message "The request is completed in %f seconds"
