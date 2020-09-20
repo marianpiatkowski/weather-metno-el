@@ -218,164 +218,176 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                (moonrise-time (cdr (assq 'time moonrise-attrs)))
                (moonrise-desc (cdr (assq 'desc moonrise-attrs)))
                )
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Moon phase")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Value "
-                                 moonphase-value)
-          (weather-metno-insert-moonphase (string-to-number moonphase-value))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 moonphase-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Moon shadow")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 moonshadow-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Azimuth "
-                                 moonshadow-azimuth)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 moonshadow-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Moon position")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 moonposition-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Azimuth "
-                                 moonposition-azimuth)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Range "
-                                 moonposition-range)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Phase "
-                                 moonposition-phase)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 moonposition-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Solar midnight")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time solarmidnight-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 solarmidnight-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 solarmidnight-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** High Moon")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time high_moon-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 high_moon-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 high_moon-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Sunrise")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time sunrise-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 sunrise-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Moonset")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time moonset-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 moonset-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Solar noon")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time solarnoon-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 solarnoon-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 solarnoon-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Low Moon")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time low_moon-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Elevation "
-                                 low_moon-elevation)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 low_moon-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Sunset")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time sunset-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 sunset-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Moonrise")
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Time "
-                                 (weather-metno--format-sunrise-time moonrise-time))
-          (insert "\n")
-          (weather-metno--insert 'font-lock-keyword-face
-                                 "*** Desc "
-                                 moonrise-desc)
-          (insert "\n")
-          (weather-metno--insert 'font-lock-function-name-face
-                                 "** Daytime "
-                                 (weather-metno--calculate-time-difference sunset-time sunrise-time))
-          (insert "\n"))
+          (unless (null (cdr moonphase))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Moon phase")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Value "
+                                   moonphase-value)
+            (weather-metno-insert-moonphase (string-to-number moonphase-value))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   moonphase-desc)
+            (insert "\n"))
+          (unless (null (cdr moonshadow))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Moon shadow")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   moonshadow-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Azimuth "
+                                   moonshadow-azimuth)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   moonshadow-desc)
+            (insert "\n"))
+          (unless (null (cdr moonposition))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Moon position")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   moonposition-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Azimuth "
+                                   moonposition-azimuth)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Range "
+                                   moonposition-range)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Phase "
+                                   moonposition-phase)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   moonposition-desc)
+            (insert "\n"))
+          (unless (null (cdr solarmidnight))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Solar midnight")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time solarmidnight-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   solarmidnight-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   solarmidnight-desc)
+            (insert "\n"))
+          (unless (null (cdr high_moon))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** High Moon")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time high_moon-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   high_moon-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   high_moon-desc)
+            (insert "\n"))
+          (unless (null (cdr sunrise))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Sunrise")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time sunrise-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   sunrise-desc)
+            (insert "\n"))
+          (unless (null (cdr moonset))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Moonset")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time moonset-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   moonset-desc)
+            (insert "\n"))
+          (unless (null (cdr solarnoon))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Solar noon")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time solarnoon-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   solarnoon-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   solarnoon-desc)
+            (insert "\n"))
+          (unless (null (cdr low_moon))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Low Moon")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time low_moon-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Elevation "
+                                   low_moon-elevation)
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   low_moon-desc)
+            (insert "\n"))
+          (unless (null (cdr sunset))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Sunset")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time sunset-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   sunset-desc)
+            (insert "\n"))
+          (unless (null (cdr moonrise))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Moonrise")
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Time "
+                                   (weather-metno--format-sunrise-time moonrise-time))
+            (insert "\n")
+            (weather-metno--insert 'font-lock-keyword-face
+                                   "*** Desc "
+                                   moonrise-desc)
+            (insert "\n"))
+          (unless (or (null (cdr sunset)) (null (cdr sunrise)))
+            (weather-metno--insert 'font-lock-function-name-face
+                                   "** Daytime "
+                                   (weather-metno--calculate-time-difference sunset-time sunrise-time))
+            (insert "\n")))
         )) ;; end of let and save-excursion
     (goto-char (point-min)))
   (unless no-switch
