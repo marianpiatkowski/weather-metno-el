@@ -101,3 +101,16 @@ The mode-line support does not yet use the query language and therefore the
 displayed information can not be configured.
 
 ![mode-line support](./images/mode-line.png)
+
+## Sunrise support
+
+Weather-metno-el can display sun/moon rise/set using the
+[Sunrise](https://api.met.no/weatherapi/sunrise/2.0/documentation) API.
+Simply add the following line
+```cl
+(require 'weather-metno-sunrise)
+```
+before setting the calendar locations. Now run `M-x weather-metno-sunrise` and it will open a new
+buffer showing when the sun and the moon rise and set.
+
+![Sunrise buffer](./images/sunrise.png)
