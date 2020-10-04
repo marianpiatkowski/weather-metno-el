@@ -110,7 +110,8 @@ Simply add the following line
 ```cl
 (require 'weather-metno-sunrise)
 ```
-before setting the calendar locations. Now run `M-x weather-metno-sunrise` and it will open a new
+before setting the variables `weather-metno-location-name`, `weather-metno-location-latitude`, and
+`weather-metno-location-longitude`. Now run `M-x weather-metno-sunrise` and it will open a new
 buffer showing when the sun and the moon rise and set.
 
 ![Sunrise buffer](./images/sunrise.png)
