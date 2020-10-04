@@ -4,8 +4,8 @@ This is a fork of [ruediger/weather-metno-el](https://github.com/ruediger/weathe
 The development of the originial project has been discontinued.
 
 [Meteorologisk institutt](http://www.met.no/) (met.no) is the Norwegian national meterological
-institute.  It offers free weather data under the
-[CC BY 3.0](http://creativecommons.org/licenses/by/3.0) license.  The
+institute. It offers free weather data under the
+[CC BY 3.0](http://creativecommons.org/licenses/by/3.0) license. The
 forecast data is available for locations outside of Norway as well.
 Weather-metno-el uses the met.no webservice to provide the weather data in
 Emacs.
@@ -36,7 +36,7 @@ Then add the `weather-metno-el` directory to your
 
 Set the variables `weather-metno-location-name`, `weather-metno-location-latitude`,
 `weather-metno-location-longitude`, and optionally
-`weather-metno-location-msl`.  Alternatively the calendar locations are used.
+`weather-metno-location-msl`. Alternatively the calendar locations are used.
 ```cl
 (setq weather-metno-location-name "Vienna, Austria"
       weather-metno-location-latitude 48
@@ -53,7 +53,7 @@ for a different location.
 
 ## Orgmode support
 
-Weather-metno-el can display weather data in your agenda buffer.  Simply add the
+Weather-metno-el can display weather data in your agenda buffer. Simply add the
 following line to an entry in an agenda file (see `org-agenda-files`):
 
 ```cl
@@ -70,15 +70,15 @@ customizing the variables `org-weather-metno-query` and
 
 The variable `org-weather-metno-query` contains a query language script that is
 executed on the weather data to extract and filter the information provided by
-met.no.  See the documentation of `weather-metno-query` for more information
-about the query language.  The query language is still under heavy development!
+met.no. See the documentation of `weather-metno-query` for more information
+about the query language. The query language is still under heavy development!
 
 The variable `org-weather-metno-format` defines a format string to present the
-information returned by the query to the user.  Unlike `format` it uses a
+information returned by the query to the user. Unlike `format` it uses a
 different syntax based on curly brackets.  The string `{NAME}` is replaced by
-the matching entry in the result data.  It is possible to add an action to the
-data with `{NAME|ACTION}`.  See `weather-query-format` for more information
-about this.  Currently the specifically defined actions are:
+the matching entry in the result data. It is possible to add an action to the
+data with `{NAME|ACTION}`. See `weather-query-format` for more information
+about this. Currently the specifically defined actions are:
 
 - **:symbol**
 
@@ -90,10 +90,10 @@ about this.  Currently the specifically defined actions are:
 ## Mode-line support
 
 Weather-metno-el comes with a feature to display the current weather in the
-mode-line.  Similar to the `battery` feature of Emacs.
+mode-line. Similar to the `battery` feature of Emacs.
 
-Activate the feature with `M-x weather-metno-mode-line`.  It should display the
-current weather information and update itself every hour.  However the weather
+Activate the feature with `M-x weather-metno-mode-line`. It should display the
+current weather information and update itself every hour. However the weather
 data is not updated automatically and you have to manually call `M-x
 weather-metno-update` for now.
 
