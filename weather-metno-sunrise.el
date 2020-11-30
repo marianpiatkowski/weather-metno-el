@@ -128,7 +128,7 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                                               weather-metno-location-longitude)))
           (url-retrieve url
                         (lambda (status start-time)
-                          (message "The request is completed in %f seconds"
+                          (message "The request completed in %f seconds"
                                    (float-time (time-subtract nil start-time)))
                           (save-excursion
                             (goto-char (point-min))
