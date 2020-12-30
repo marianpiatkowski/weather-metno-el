@@ -11,18 +11,18 @@
 
 ;; This file is NOT part of GNU Emacs.
 
-;; weather-el is free software: you can redistribute it and/or modify
+;; weather-metno-el is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
 
-;; weather-el is distributed in the hope that it will be useful,
+;; weather-metno-el is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with weather-el.  If not, see <http://www.gnu.org/licenses/>.
+;; along with weather-metno-el.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
@@ -126,23 +126,6 @@ See `format-time-string' for a description of the format."
 (defconst weather-metno-logo "met-no.png"
   "File name of the met.no logo.")
 
-(defvar weather-metno-symbol--storage nil
-  "Cache symbols")
-
-(defun weather-metno-clear-symbol-cache ()
-  (interactive)
-  (setq weather-metno-symbol--storage nil))
-
-(defun weather-metno--symbol-cache-insert (symbol icon &optional nightp polarp content-type)
-  "Store IMAGE in cache."
-  (setq weather-metno-symbol--storage (append weather-metno-symbol--storage
-                                             (list (cons (list icon nightp polarp content-type) symbol)))))
-
-(defun weather-metno--symbol-cache-fetch (icon &optional nightp polarp content-type)
-  "Fetch symbol from cache"
-  (cdr (assoc (list icon nightp polarp content-type) weather-metno-symbol--storage)))
-
-
 (defvar weather-metno-symbol-expire-time 86400
   "Expire time for symbols in seconds.
 See `url-cache-expire-time'. Default is 24h (86400s).")
@@ -160,11 +143,15 @@ http://api.met.no/weatherapi/weathericon/2.0/documentation
 The data is available under CC-BY-3.0."
   ;; (message (format "=== %s %s %s" icon nightp polarp))
 
-  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d%s.png" icon "d")))
+  (let ((string-p (format "%syr-weather-symbols/dist/png/30/%02d%s.png"
+                          (file-name-directory (symbol-file 'weather-metno-url))
+                          icon "d")))
     (when (file-exists-p string-p)
       (put-image (create-image string-p) point)))
   ;; if image doesn't exist try without 'd', 'm'  and 'n', respectively
-  (let ((string-p (format "./yr-weather-symbols/dist/png/30/%02d.png" icon )))
+  (let ((string-p (format "%syr-weather-symbols/dist/png/30/%02d.png"
+                          (file-name-directory (symbol-file 'weather-metno-url))
+                          icon)))
     (when (file-exists-p string-p)
       (put-image (create-image string-p) point))))
 
@@ -622,8 +609,12 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
                 )))
           )
         (insert "\n")
-        (when (file-exists-p weather-metno-logo)
-          (insert-image-file weather-metno-logo))
+        (let ((weather-metno-filename
+               (format "%s%s"
+                       (file-name-directory (symbol-file 'weather-metno-url))
+                       weather-metno-logo)))
+          (when (file-exists-p weather-metno-filename)
+            (insert-image-file weather-metno-filename)))
         (weather-metno--insert
          'weather-metno-footer
          "Data from The Norwegian Meteorological Institute (CC BY 3.0)\n" ;; TODO link!
