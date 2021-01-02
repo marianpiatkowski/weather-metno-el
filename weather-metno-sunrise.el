@@ -1,6 +1,6 @@
 ;;; weather-metno-sunrise.el --- Sun/Moon rise/set from met.no in Emacs -*- lexical-binding: t -*-
 
-;; Copyright (C) 2020 Marian Piatkowski <marianpiatkowski@web.de>
+;; Copyright (C) 2020- Marian Piatkowski <marianpiatkowski@web.de>
 
 ;; Author: Marian Piatkowski <marianpiatkowski@web.de>
 ;; URL: https://github.com/marianpiatkowski/weather-metno-el

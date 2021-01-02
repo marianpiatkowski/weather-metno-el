@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2012-2014 Rüdiger Sonderfeld <ruediger@c-plusplus.de>
 ;; Copyright (C) 2014 Marian Piatkowski <marian.piatkowski@iwr.uni-heidelberg.de>
-;; Copyright (C) 2020 Marian Piatkowski <marianpiatkowski@web.de>
+;; Copyright (C) 2020- Marian Piatkowski <marianpiatkowski@web.de>
 
 ;; Author: Rüdiger Sonderfeld <ruediger@c-plusplus.de>
 ;; Author: Marian Piatkowski  <marianpiatkowski@web.de>
