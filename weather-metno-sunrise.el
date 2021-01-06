@@ -105,9 +105,8 @@
       (insert-image (create-image moonphase-filename)))))
 
 ;;;###autoload
-(defun weather-metno-sunrise (&optional no-switch)
-  "Display sunrise, moonrise, sunset, moonset etc.
-If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
+(defun weather-metno-sunrise-build-buffer ()
+  "Display sunrise, moonrise, sunset, moonset etc."
   (interactive)
   (with-current-buffer (get-buffer-create "*Sunrise*")
     (save-excursion
@@ -124,32 +123,6 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
         (weather-metno--insert 'weather-metno-date
                                "* For "
                                (format-time-string "%A %Y-%m-%d") "\n")
-        (let ((url (weather-metno-sunrise-url weather-metno-location-latitude
-                                              weather-metno-location-longitude)))
-          (url-retrieve url
-                        (lambda (status start-time)
-                          (message "The request completed in %f seconds"
-                                   (float-time (time-subtract nil start-time)))
-                          (save-excursion
-                            (goto-char (point-min))
-                            (unless (search-forward "\n\n" nil t)
-                              (kill-buffer)
-                              (error "Error in http reply"))
-                            (let ((headers (buffer-substring (point-min) (point))))
-                              (unless (string-match-p
-                                       (concat "^HTTP/1.1 "
-                                               "\\(200 OK\\|203 "
-                                               "Non-Authoritative Information\\)")
-                                       headers)
-                                (kill-buffer)
-                                (error "Unable to fetch data"))
-                              (url-store-in-cache (current-buffer))
-                              (setq weather-metno--sunrise-data (xml-parse-region (point) (point-max)))
-                              (kill-buffer)))
-                          )
-                        `(,(current-time))
-                        'silent
-                        'inhibit-cookies))
         (let* ((astrodata (car weather-metno--sunrise-data))
                ;; from the single node 'astrodata' get child 'location'
                (location (car (xml-get-children astrodata 'location)))
@@ -390,8 +363,40 @@ If NO-SWITCH is non-nil then do not switch to weather forecast buffer."
             (insert "\n")))
         )) ;; end of let and save-excursion
     (goto-char (point-min)))
-  (unless no-switch
-    (switch-to-buffer "*Sunrise*")))
+  (switch-to-buffer "*Sunrise*"))
+
+;;;###autoload
+(defun weather-metno-sunrise ()
+  "Update sunrise, moonrise, sunset, moonset etc. data."
+  (interactive)
+  (let ((url (weather-metno-sunrise-url weather-metno-location-latitude
+                                        weather-metno-location-longitude)))
+    (url-retrieve url
+                  (lambda (status start-time)
+                    (message "The request completed in %f seconds"
+                             (float-time (time-subtract nil start-time)))
+                    (save-excursion
+                      (goto-char (point-min))
+                      (unless (search-forward "\n\n" nil t)
+                        (kill-buffer)
+                        (error "Error in http reply"))
+                      (let ((headers (buffer-substring (point-min) (point))))
+                        (unless (string-match-p
+                                 (concat "^HTTP/1.1 "
+                                         "\\(200 OK\\|203 "
+                                         "Non-Authoritative Information\\)")
+                                 headers)
+                          (kill-buffer)
+                          (error "Unable to fetch data"))
+                        (url-store-in-cache (current-buffer))
+                        (setq weather-metno--sunrise-data (xml-parse-region (point) (point-max)))
+                        (kill-buffer))
+                      (weather-metno-sunrise-build-buffer))
+                    )
+                  `(,(current-time))
+                  'silent
+                  'inhibit-cookies))
+  )
 
 (provide 'weather-metno-sunrise)
 
