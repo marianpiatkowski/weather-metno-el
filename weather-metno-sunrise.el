@@ -104,6 +104,198 @@
     (when (file-exists-p moonphase-filename)
       (insert-image (create-image moonphase-filename)))))
 
+;;; ======== formatting functions for items in *Sunrise* buffer ========
+
+(defun weather-metno-sunrise--format-moonphase (node)
+  "Format attributes of moon phase."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Moon phase\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Value "
+                         (xml-get-attribute node 'value))
+  (weather-metno-insert-moonphase (string-to-number (xml-get-attribute node 'value)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-moonshadow (node)
+  "Format attributes of moon shadow."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Moon shadow\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Azimuth "
+                         (xml-get-attribute node 'azimuth))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-moonposition (node)
+  "Format attributes of moon position."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Moon position\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Azimuth "
+                         (xml-get-attribute node 'azimuth))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Range "
+                         (xml-get-attribute node 'range))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Phase "
+                         (xml-get-attribute node 'phase))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-moonrise (node)
+  "Format attributes of moonrise."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Moonrise\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-solarmidnight (node)
+  "Format attributes of solar midnight."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Solar midnight\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-high_moon (node)
+  "Format attributes of high moon."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** High Moon\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-sunrise (node)
+  "Format attributes of sunrise."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Sunrise\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-moonset (node)
+  "Format attributes of moonset."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Moonset\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-solarnoon (node)
+  "Format attributes of solar noon."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Solar noon\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-sunset (node)
+  "Format attributes of sunset."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Sunset\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-low_moon (node)
+  "Format attributes of low moon."
+  (weather-metno--insert 'font-lock-function-name-face
+                         "** Low Moon\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Time "
+                         (weather-metno--format-sunrise-time (xml-get-attribute node 'time)))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Elevation "
+                         (xml-get-attribute node 'elevation))
+  (insert "\n")
+  (weather-metno--insert 'font-lock-keyword-face
+                         "*** Desc "
+                         (xml-get-attribute node 'desc))
+  (insert "\n"))
+
+(defun weather-metno-sunrise--format-daytime (node)
+  "Format daytime."
+  (let* ((sunset-node (car (xml-get-children node 'sunset)))
+         (sunrise-node (car (xml-get-children node 'sunrise)))
+         )
+    (unless (or (null (cdr sunset-node)) (null (cdr sunrise-node)))
+      (weather-metno--insert 'font-lock-function-name-face
+                             "** Daytime "
+                             (weather-metno--calculate-time-difference (xml-get-attribute sunset-node 'time)
+                                                                       (xml-get-attribute sunrise-node 'time)))
+      (insert "\n"))))
+
+;;; ======== end of formatting functions ========
+
 ;;;###autoload
 (defun weather-metno-sunrise-build-buffer ()
   "Display sunrise, moonrise, sunset, moonset etc."
@@ -124,243 +316,19 @@
                                "* For "
                                (format-time-string "%A %Y-%m-%d") "\n")
         (let* ((astrodata (car weather-metno--sunrise-data))
-               ;; from the single node 'astrodata' get child 'location'
-               (location (car (xml-get-children astrodata 'location)))
-               ;; from location get child 'time' and denote it by 'times'
-               (times (car (xml-get-children location 'time)))
-               ;; ---
-               ;; from time (aka times) get child 'moonphase'
-               (moonphase (car (xml-get-children times 'moonphase)))
-               ;; get attributes from node 'moonphase'
-               (moonphase-attrs (xml-node-attributes moonphase))
-               ;; get the time of moonphase
-               (moonphase-time (cdr (assq 'time moonphase-attrs)))
-               ;; get the value of moonphase
-               (moonphase-value (cdr (assq 'value moonphase-attrs)))
-               ;; get the desc of moonphase
-               (moonphase-desc (cdr (assq 'desc moonphase-attrs)))
-               ;; ---
-               (moonshadow (car (xml-get-children times 'moonshadow)))
-               (moonshadow-attrs (xml-node-attributes moonshadow))
-               (moonshadow-time (cdr (assq 'time moonshadow-attrs)))
-               (moonshadow-elevation (cdr (assq 'elevation moonshadow-attrs)))
-               (moonshadow-azimuth (cdr (assq 'azimuth moonshadow-attrs)))
-               (moonshadow-desc (cdr (assq 'desc moonshadow-attrs)))
-               (moonposition (car (xml-get-children times 'moonposition)))
-               (moonposition-attrs (xml-node-attributes moonposition))
-               (moonposition-time (cdr (assq 'time moonposition-attrs)))
-               (moonposition-elevation (cdr (assq 'elevation moonposition-attrs)))
-               (moonposition-azimuth (cdr (assq 'azimuth moonposition-attrs)))
-               (moonposition-range (cdr (assq 'range moonposition-attrs)))
-               (moonposition-phase (cdr (assq 'phase moonposition-attrs)))
-               (moonposition-desc (cdr (assq 'desc moonposition-attrs)))
-               (solarmidnight (car (xml-get-children times 'solarmidnight)))
-               (solarmidnight-attrs (xml-node-attributes solarmidnight))
-               (solarmidnight-time (cdr (assq 'time solarmidnight-attrs)))
-               (solarmidnight-elevation (cdr (assq 'elevation solarmidnight-attrs)))
-               (solarmidnight-desc (cdr (assq 'desc solarmidnight-attrs)))
-               (high_moon (car (xml-get-children times 'high_moon)))
-               (high_moon-attrs (xml-node-attributes high_moon))
-               (high_moon-time (cdr (assq 'time high_moon-attrs)))
-               (high_moon-elevation (cdr (assq 'elevation high_moon-attrs)))
-               (high_moon-desc (cdr (assq 'desc high_moon-attrs)))
-               (sunrise (car (xml-get-children times 'sunrise)))
-               (sunrise-attrs (xml-node-attributes sunrise))
-               (sunrise-time (cdr (assq 'time sunrise-attrs)))
-               (sunrise-desc (cdr (assq 'desc sunrise-attrs)))
-               (moonset (car (xml-get-children times 'moonset)))
-               (moonset-attrs (xml-node-attributes moonset))
-               (moonset-time (cdr (assq 'time moonset-attrs)))
-               (moonset-desc (cdr (assq 'desc moonset-attrs)))
-               (solarnoon (car (xml-get-children times 'solarnoon)))
-               (solarnoon-attrs (xml-node-attributes solarnoon))
-               (solarnoon-time (cdr (assq 'time solarnoon-attrs)))
-               (solarnoon-elevation (cdr (assq 'elevation solarnoon-attrs)))
-               (solarnoon-desc (cdr (assq 'desc solarnoon-attrs)))
-               (low_moon (car (xml-get-children times 'low_moon)))
-               (low_moon-attrs (xml-node-attributes low_moon))
-               (low_moon-time (cdr (assq 'time low_moon-attrs)))
-               (low_moon-elevation (cdr (assq 'elevation low_moon-attrs)))
-               (low_moon-desc (cdr (assq 'desc low_moon-attrs)))
-               (sunset (car (xml-get-children times 'sunset)))
-               (sunset-attrs (xml-node-attributes sunset))
-               (sunset-time (cdr (assq 'time sunset-attrs)))
-               (sunset-desc (cdr (assq 'desc sunset-attrs)))
-               (moonrise (car (xml-get-children times 'moonrise)))
-               (moonrise-attrs (xml-node-attributes moonrise))
-               (moonrise-time (cdr (assq 'time moonrise-attrs)))
-               (moonrise-desc (cdr (assq 'desc moonrise-attrs)))
+               (location-node (car (xml-get-children astrodata 'location)))
+               (time-node (car (xml-get-children location-node 'time)))
                )
-          (unless (null (cdr moonphase))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Moon phase")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Value "
-                                   moonphase-value)
-            (weather-metno-insert-moonphase (string-to-number moonphase-value))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   moonphase-desc)
-            (insert "\n"))
-          (unless (null (cdr moonshadow))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Moon shadow")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   moonshadow-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Azimuth "
-                                   moonshadow-azimuth)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   moonshadow-desc)
-            (insert "\n"))
-          (unless (null (cdr moonposition))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Moon position")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   moonposition-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Azimuth "
-                                   moonposition-azimuth)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Range "
-                                   moonposition-range)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Phase "
-                                   moonposition-phase)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   moonposition-desc)
-            (insert "\n"))
-          (unless (null (cdr solarmidnight))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Solar midnight")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time solarmidnight-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   solarmidnight-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   solarmidnight-desc)
-            (insert "\n"))
-          (unless (null (cdr high_moon))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** High Moon")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time high_moon-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   high_moon-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   high_moon-desc)
-            (insert "\n"))
-          (unless (null (cdr sunrise))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Sunrise")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time sunrise-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   sunrise-desc)
-            (insert "\n"))
-          (unless (null (cdr moonset))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Moonset")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time moonset-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   moonset-desc)
-            (insert "\n"))
-          (unless (null (cdr solarnoon))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Solar noon")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time solarnoon-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   solarnoon-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   solarnoon-desc)
-            (insert "\n"))
-          (unless (null (cdr low_moon))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Low Moon")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time low_moon-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Elevation "
-                                   low_moon-elevation)
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   low_moon-desc)
-            (insert "\n"))
-          (unless (null (cdr sunset))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Sunset")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time sunset-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   sunset-desc)
-            (insert "\n"))
-          (unless (null (cdr moonrise))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Moonrise")
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Time "
-                                   (weather-metno--format-sunrise-time moonrise-time))
-            (insert "\n")
-            (weather-metno--insert 'font-lock-keyword-face
-                                   "*** Desc "
-                                   moonrise-desc)
-            (insert "\n"))
-          (unless (or (null (cdr sunset)) (null (cdr sunrise)))
-            (weather-metno--insert 'font-lock-function-name-face
-                                   "** Daytime "
-                                   (weather-metno--calculate-time-difference sunset-time sunrise-time))
-            (insert "\n")))
+          (dolist (entry
+                   ;; remove dummy child nodes that contain "\n  " as a substring
+                   (-remove (lambda (entry) (cl-search "\n  " entry)) (xml-node-children time-node)))
+            (let ((formatter (intern (concat "weather-metno-sunrise--format-"
+                                             (symbol-name (car entry))))))
+              (if (fboundp formatter)
+                  (funcall formatter entry)
+                (insert (format "Unknown entry %s\n" entry)))))
+          ;; calculate daytime as well
+          (weather-metno-sunrise--format-daytime time-node))
         )) ;; end of let and save-excursion
     (goto-char (point-min)))
   (switch-to-buffer "*Sunrise*"))
