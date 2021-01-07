@@ -28,6 +28,7 @@
 
 ;;; Code:
 
+(require 'dash)
 (require 'weather-metno)
 
 (defvar weather-metno--sunrise-data nil
