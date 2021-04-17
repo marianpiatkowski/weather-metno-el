@@ -114,7 +114,7 @@ See `format-time-string' for a description of the format."
   :group 'weather-metno
   :type 'string)
 
-(defconst weather-metno-url "http://api.met.no/weatherapi/"
+(defconst weather-metno-url "https://api.met.no/weatherapi/"
   "URL to api.met.no.")
 
 (defconst weather-metno-weathericon-version "2.0"
@@ -177,7 +177,7 @@ compatible timestamps.  Except for fractional seconds! Thanks to tali713."
 
 (defun weather-metno--forecast-url (lat lon &optional msl)
   "Create the url from LAT, LON and MSL to be used by `weather-metno-forecast'."
-  (concat (format "%slocationforecast/%s/classic?lat=%s;lon=%s"
+  (concat (format "%slocationforecast/%s/classic?lat=%s&lon=%s"
                   weather-metno-url weather-metno-forecast-version lat lon)
           (if msl
               (format ";msl=%s" msl)
